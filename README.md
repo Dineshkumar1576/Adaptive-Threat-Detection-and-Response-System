@@ -1,4 +1,4 @@
-# Adaptive Threat Detection & Response (Full NO-BAT package)
+# Adaptive Threat Detection & Response System
 
 A powerful cybersecurity project that detects, analyses, and visualizes suspicious activity in real time.  
 Built using **Python**, **Flask**, and a modular detection engine, this system includes:

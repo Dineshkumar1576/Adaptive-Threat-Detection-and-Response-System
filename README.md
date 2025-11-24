@@ -46,26 +46,33 @@ Real-Time Dashboard
 Project Structure
 
 project/
-
+```
 run_app.py
 run_monitor.py
 requirements.txt
 sample_log_generator.py
+```
 
 src/
+```
 dashboard.py
 detector.py
 log_parser.py
 response_engine.py
 auth_config.json
+```
 
 templates/
+```
 login.html
 index.html
+```
 
 docs/
+```
 architecture.png
 project_report.pdf
+```
 
 
 ---
@@ -75,29 +82,30 @@ Installation
 1. Install Python (3.10 or newer)
 
 2. Extract the project, then run:
-
+```
 py run_app.py
-
+```
 
 3. Open in browser:
-
+```
 http://127.0.0.1:5000/
+```
 
 4. Login credentials  
 Stored in:
-
+```
 src/auth_config.json
-
+```
 
 ---
 
 Send a Test Alert
 PowerShell:
-
+```
 Invoke-RestMethod -Uri http://127.0.0.1:5000/alert -Method Post 
 -Body (@{alert="test"; ip="203.0.113.55"; timestamp=(Get-Date).ToString()} | ConvertTo-Json) 
 -ContentType "application/json"
-
+```
 
 ---
 
@@ -116,9 +124,9 @@ AUTO_BLOCK = 1
 
 Documentation  
 Full project report inside:
-
+```
 docs/project_report.pdf
-
+```
 ---
 This is the full project: cross-platform threat detection with a polished Flask dashboard.
 **Optional SAFE MODE:** firewall blocking exists but is disabled by default (AUTO_BLOCK=0).

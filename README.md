@@ -111,14 +111,14 @@ Invoke-RestMethod -Uri http://127.0.0.1:5000/alert -Method Post
 
 Firewall Blocking (Optional)
 Safe mode (default):
-
+```
 AUTO_BLOCK = 0
-
+```
 
 Enable blocking (admin required):
-
+```
 AUTO_BLOCK = 1
-
+```
 
 ---
 

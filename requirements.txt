@@ -1,0 +1,6 @@
+watchdog
+psutil
+flask
+matplotlib
+requests
+pywin32; platform_system == 'Windows'

@@ -1,0 +1,5 @@
+{
+  "username": "admin",
+  "password": "StrongPassword123",
+  "flask_secret_key": "aad9451b80cadc11225a4162ad37708a"
+}

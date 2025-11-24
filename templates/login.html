@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login — Adaptive Threat Detection System</title>
+    <!-- Google Fonts: use a hacker-mono and a stylish display font -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root{
+        --neon:#00ff66;
+        --neon-2:#33ff88;
+        --bg:#000000;
+        --panel-bg: rgba(0,0,0,0.88);
+      }
+      html,body{height:100%}
+      body {
+        background: radial-gradient(ellipse at 10% 10%, rgba(0,50,20,0.6), #000 40%), #000;
+        color: var(--neon);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Share Tech Mono', Consolas, 'Courier New', monospace;
+        margin:0;
+        overflow:hidden;
+      }
+      .matrix{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.12;z-index:1}
+      .login-box {
+        width: 420px;
+        background: var(--panel-bg);
+        border: 2px solid rgba(0,255,102,0.08);
+        box-shadow: 0 0 40px rgba(0,255,102,0.06), inset 0 0 30px rgba(0,80,40,0.06);
+        padding: 28px;
+        border-radius: 12px;
+        z-index: 2;
+        backdrop-filter: blur(4px);
+      }
+      .brand {
+        font-family: 'Orbitron', 'Share Tech Mono', monospace;
+        color: var(--neon);
+        font-weight:700;
+        text-align:center;
+        letter-spacing:2px;
+        font-size:18px;
+        text-shadow: 0 0 12px rgba(0,255,102,0.7), 0 0 30px rgba(0,160,255,0.06);
+        margin-bottom:8px;
+      }
+      .subtitle { text-align:center; color: rgba(150,255,200,0.8); font-size:0.8rem; margin-bottom:10px; }
+      label { color: var(--neon); font-size:0.85rem; }
+      .form-control {
+        background: transparent;
+        border: 1px solid rgba(0,255,102,0.12);
+        color: #bfffdc;
+        font-family: 'Share Tech Mono', monospace;
+      }
+      .form-control::placeholder { color: rgba(180,255,200,0.35); }
+      .form-control:focus {
+        border-color: var(--neon-2);
+        box-shadow: 0 0 18px rgba(0,255,102,0.12);
+        outline: none;
+        color: #eafff0;
+      }
+      .btn-enter {
+        background: linear-gradient(90deg,var(--neon),var(--neon-2));
+        color: #00110a;
+        border: none;
+        font-weight:700;
+        box-shadow: 0 8px 30px rgba(0,255,102,0.08);
+        font-family: 'Orbitron', sans-serif;
+      }
+      .btn-enter:active { transform: translateY(1px); }
+      .hint { color: rgba(120,255,180,0.55); font-size:0.82rem; text-align:center; margin-top:8px; }
+      .footer { margin-top:12px; text-align:center; font-size:0.75rem; color:#00ff88; opacity:0.6; }
+      .error { background: rgba(255,0,0,0.06); border-left:3px solid rgba(255,0,0,0.25); padding:8px; border-radius:6px; color:#ffb3b3; margin-bottom:10px; }
+      .creds { font-family: 'Share Tech Mono', monospace; color: var(--neon); font-weight:600; letter-spacing:0.6px; }
+      /* small responsiveness */
+      @media (max-width:480px){ .login-box{width:92%;padding:18px} }
+    </style>
+  </head>
+  <body>
+    <canvas class="matrix" id="matrix"></canvas>
+    <div class="login-box">
+      <div class="brand">ADAPTIVE THREAT DETECTION SYSTEM</div>
+      <div class="subtitle">Secure access portal — enter credentials</div>
+      {% if error %}
+      <div class="error">{{ error }}</div>
+      {% endif %}
+      <form method="post" action="/login" autocomplete="on">
+        <div class="mb-2">
+          <label class="form-label">Username</label>
+          <input name="username" class="form-control" placeholder="username" autofocus required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" placeholder="password" required />
+        </div>
+        <button class="btn btn-enter w-100 py-2" type="submit">INITIATE</button>
+      </form>
+      
+      
+    </div>
+
+    <script>
+      // Matrix rain animation - improved, lightweight
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      const cols = Math.floor(W / 14) + 1;
+      const ypos = Array(cols).fill(0);
+      const letters = 'ﾊﾐﾋｰｳｼｶﾞﾘﾃﾁﾄ' + '01ABCDXYZ@#$%&*abcdefghijklmnopqrstuvwxyz';
+      function draw(){
+        ctx.fillStyle = 'rgba(0,0,0,0.12)';
+        ctx.fillRect(0,0,W,H);
+        ctx.fillStyle = '#00ff66';
+        ctx.font = '12pt "Share Tech Mono", monospace';
+        for(let i=0;i<ypos.length;i++){
+          const text = letters.charAt(Math.floor(Math.random()*letters.length));
+          const x = i*14;
+          ctx.fillText(text, x, ypos[i]*14);
+          if(ypos[i]*14 > H && Math.random() > 0.975) ypos[i]=0;
+          ypos[i]++;
+        }
+      }
+      let matInterval = setInterval(draw, 55);
+      window.addEventListener('resize', ()=>{ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; cols = Math.floor(W/14)+1; ypos.length = cols; for(let i=0;i<ypos.length;i++) if(!ypos[i]) ypos[i]=Math.floor(Math.random()*50); });
+    </script>
+  </body>
+</html>

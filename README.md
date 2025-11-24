@@ -127,7 +127,7 @@ Run (NO-BAT, Smart App Control friendly):
 1. Ensure Python 3.9+ is installed.
 2. Extract this repo to a folder.
 3. Open PowerShell in that folder and run:
+4. py run_app.py
+5. Open http://127.0.0.1:5000 and log in with credentials from src/auth_config.json
 
 If this project helped you, star it on GitHub!
-   py run_app.py
-5. Open http://127.0.0.1:5000 and log in with credentials from src/auth_config.json

@@ -35,3 +35,4 @@ if __name__=='__main__':
         print('Failed to create venv. Ensure Python is installed.'); sys.exit(1)
     pip_install()
     launch()
+#
